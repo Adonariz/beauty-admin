@@ -10,7 +10,7 @@ interface RequestConfig {
 	url: string;
 	method?: HTTPRequestMethods;
 	body?: string | null;
-	headers: HTTPRequestHeaders;
+	headers?: HTTPRequestHeaders;
 }
 
 export const useHttp = () => {
