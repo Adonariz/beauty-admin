@@ -22,15 +22,17 @@ export const useAppointmentService = () => {
 	const getAllActiveAppointments = async () => {
 		const base = await getAllAppointments();
 
-		const transformed: ActiveAppointment[] = base.map(({ id, name, date, service, phone }) => {
-			return {
-				id,
-				name,
-				date,
-				service,
-				phone,
-			};
-		});
+		const transformed: ActiveAppointment[] = base
+			.filter((item) => !item.canceled)
+			.map(({ id, name, date, service, phone }) => {
+				return {
+					id,
+					name,
+					date,
+					service,
+					phone,
+				};
+			});
 
 		return transformed;
 	};

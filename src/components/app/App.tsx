@@ -1,29 +1,20 @@
-import { useEffect } from 'react';
 import Header from '../header/Header';
 import SchedulePage from '../../pages/schedule/SchedulePage';
 // import HistoryPage from "../../pages/history/HistoryPage";
 // import CancelModal from "../modal/CancelModal";
-import { useAppointmentService } from '@services/AppointmentService';
-import { InitialState } from '@src/context/appointments/reducer';
+import { AppointmentContextProvider } from '@src/context/appointments/AppointmentsContext';
 
 import './app.scss';
 
-const initialState: InitialState = {
-	allAppointments: [],
-	activeAppointments: [],
-};
-
 function App() {
-	const { loadingStatus, getAllAppointments, getAllActiveAppointments } = useAppointmentService();
-
-	useEffect(() => {
-		getAllAppointments().then((data) => console.log(data));
-	}, []);
-
 	return (
 		<main className="board">
 			<Header />
-			<SchedulePage />
+
+			<AppointmentContextProvider>
+				<SchedulePage />
+			</AppointmentContextProvider>
+
 			{/* <HistoryPage /> */}
 			{/* <CancelModal /> */}
 		</main>

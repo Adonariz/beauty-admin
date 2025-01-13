@@ -1,13 +1,14 @@
-import "./appointmentItem.scss";
+import { ActiveAppointment } from '@shared/interfaces/appointment.interface';
+import './appointmentItem.scss';
 
-function AppointmentItem() {
+function AppointmentItem({ id, name, date, service, phone }: ActiveAppointment) {
 	return (
 		<div className="appointment">
 			<div className="appointment__info">
-				<span className="appointment__date">Date: DD/MM/YYYY HH:mm</span>
-				<span className="appointment__name">Name: Alex Smith</span>
-				<span className="appointment__service">Service: Manicure</span>
-				<span className="appointment__phone">Phone: +1 948 945 344</span>
+				<span className="appointment__date">Date: {date}</span>
+				<span className="appointment__name">Name: {name}</span>
+				<span className="appointment__service">Service: {service}</span>
+				<span className="appointment__phone">Phone: {phone}</span>
 			</div>
 			<div className="appointment__time">
 				<span>Time left:</span>
