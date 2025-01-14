@@ -6,7 +6,10 @@ import { Appointment } from '@shared/interfaces/appointment.interface';
 
 import './appointmentItem.scss';
 
-type AppointmentProps = Optional<Appointment, 'canceled'>;
+type AppointmentProps = Optional<Appointment, 'canceled'> & {
+	openModal: (state: boolean) => void;
+	selectId: () => void;
+};
 
 /**
  * функция для вывода строки с оставшимся временем
@@ -21,7 +24,7 @@ function getTimeLeftString(date: string): string {
 	return `${hours}:${minutes.toString().length > 1 ? minutes : `0${minutes}`}`;
 }
 
-function AppointmentItem({ id, name, date, service, phone, canceled }: AppointmentProps) {
+function AppointmentItem({ id, name, date, service, phone, canceled, openModal, selectId }: AppointmentProps) {
 	const [timeLeft, setTimeLeft] = useState<string | null>(null);
 
 	const formattedDate = dayjs(date).format('DD/MM/YYYY HH:mm');
@@ -53,7 +56,14 @@ function AppointmentItem({ id, name, date, service, phone, canceled }: Appointme
 						<span>Time left:</span>
 						<span className="appointment__timer">{timeLeft}</span>
 					</div>
-					<button className="appointment__cancel">Cancel</button>
+					<button
+						className="appointment__cancel"
+						onClick={() => {
+							openModal(true);
+							selectId();
+						}}>
+						Cancel
+					</button>
 				</>
 			) : null}
 
