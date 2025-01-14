@@ -3,27 +3,29 @@ import dayjs from 'dayjs';
 import { ActiveAppointment } from '@shared/interfaces/appointment.interface';
 import './appointmentItem.scss';
 
+/**
+ * функция для вывода строки с оставшимся временем
+ *
+ * @param {string} date дата в формате строки
+ * @returns {string}
+ */
+function getTimeLeftString(date: string): string {
+	const hours = dayjs(date).diff(undefined, 'h');
+	const minutes = dayjs(date).diff(undefined, 'm') % 60;
+
+	return `${hours}:${minutes.toString().length > 1 ? minutes : `0${minutes}`}`;
+}
+
 function AppointmentItem({ id, name, date, service, phone }: ActiveAppointment) {
 	const [timeLeft, setTimeLeft] = useState<string | null>(null);
 
 	const formattedDate = dayjs(date).format('DD/MM/YYYY HH:mm');
 
 	useEffect(() => {
-		const hours = dayjs(date).diff(undefined, 'h');
-		const minutes = dayjs(date).diff(undefined, 'm') % 60;
-
-		const timeString = `${hours}:${minutes.toString().length > 1 ? minutes : `0${minutes}`}`;
-
-		setTimeLeft(timeString);
+		setTimeLeft(getTimeLeftString(date));
 
 		const intervalId = setInterval(() => {
-			// #TODO вынести в отдельную функцию
-			const hours = dayjs(date).diff(undefined, 'h');
-			const minutes = dayjs(date).diff(undefined, 'm') % 60;
-
-			const timeString = `${hours}:${minutes.toString().length > 1 ? minutes : `0${minutes}`}`;
-
-			setTimeLeft(timeString);
+			setTimeLeft(getTimeLeftString(date));
 		}, 60000);
 
 		return () => {
