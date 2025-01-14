@@ -1,17 +1,18 @@
 import { createContext, ReactNode, useReducer } from 'react';
-import reducer, { InitialState } from '@src/context/appointments/reducer';
+import reducer, { AppointmentState } from '@src/context/appointments/reducer';
 import { ActionsTypes } from './actions';
 import { useAppointmentService } from '@services/AppointmentService';
 
-const initialState: InitialState = {
+const initialState: AppointmentState = {
 	allAppointments: [],
 	activeAppointments: [],
+	appointmentLoadingStatus: 'idle',
 };
 interface ProviderProps {
 	children: ReactNode;
 }
 
-interface AppointmentContextValue extends InitialState {
+interface AppointmentContextValue extends AppointmentState {
 	getAppointments: () => void;
 	getActiveAppointments: () => void;
 }
@@ -19,6 +20,7 @@ interface AppointmentContextValue extends InitialState {
 export const AppointmentContext = createContext<AppointmentContextValue>({
 	allAppointments: initialState.allAppointments,
 	activeAppointments: initialState.activeAppointments,
+	appointmentLoadingStatus: initialState.appointmentLoadingStatus,
 	getAppointments: () => {},
 	getActiveAppointments: () => {},
 });
@@ -30,6 +32,7 @@ export const AppointmentContextProvider = ({ children }: ProviderProps) => {
 	const value: AppointmentContextValue = {
 		allAppointments: state.allAppointments,
 		activeAppointments: state.activeAppointments,
+		appointmentLoadingStatus: loadingStatus,
 		getAppointments: () => {
 			getAllAppointments().then((data) => dispatch({ type: ActionsTypes.SET_ALL_APPOINTMENTS, payload: data }));
 		},
