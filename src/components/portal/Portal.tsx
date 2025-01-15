@@ -10,7 +10,6 @@ function createWrapperAndAppendToBody(wrapperId: string) {
 	const wrapperEllement = document.createElement('div');
 
 	wrapperEllement.setAttribute('id', wrapperId);
-	wrapperEllement.setAttribute('class', 'modal');
 	document.body.append(wrapperEllement);
 
 	return wrapperEllement;
