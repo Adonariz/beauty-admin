@@ -1,5 +1,5 @@
 import Portal from '@components/portal/Portal';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import './modal.scss';
@@ -12,6 +12,20 @@ interface ModalProps {
 
 function CancelModal({ handleClose, selectedId, isOpen }: ModalProps) {
 	const nodeRef = useRef<HTMLDivElement>(null);
+
+	const closeOnEscapeKey = (evt: KeyboardEvent): void => {
+		if (evt.key === 'Escape') {
+			handleClose(false);
+		}
+	};
+
+	useEffect(() => {
+		document.body.addEventListener('keydown', closeOnEscapeKey);
+
+		return () => {
+			document.body.removeEventListener('keydown', closeOnEscapeKey);
+		};
+	}, [handleClose]);
 
 	return (
 		<Portal>
