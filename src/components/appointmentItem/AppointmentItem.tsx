@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import dayjs from 'dayjs';
 import { Optional } from 'utility-types';
 
@@ -7,8 +7,7 @@ import { Appointment } from '@shared/interfaces/appointment.interface';
 import './appointmentItem.scss';
 
 type AppointmentProps = Optional<Appointment, 'canceled'> & {
-	openModal: (state: boolean) => void;
-	selectId: () => void;
+	openModal: (state: number) => void;
 };
 
 /**
@@ -24,7 +23,7 @@ function getTimeLeftString(date: string): string {
 	return `${hours}:${minutes.toString().length > 1 ? minutes : `0${minutes}`}`;
 }
 
-function AppointmentItem({ id, name, date, service, phone, canceled, openModal, selectId }: AppointmentProps) {
+const AppointmentItem = memo(({ id, name, date, service, phone, canceled, openModal }: AppointmentProps) => {
 	const [timeLeft, setTimeLeft] = useState<string | null>(null);
 
 	const formattedDate = dayjs(date).format('DD/MM/YYYY HH:mm');
@@ -59,8 +58,7 @@ function AppointmentItem({ id, name, date, service, phone, canceled, openModal, 
 					<button
 						className="appointment__cancel"
 						onClick={() => {
-							openModal(true);
-							selectId();
+							openModal(id);
 						}}>
 						Cancel
 					</button>
@@ -70,6 +68,6 @@ function AppointmentItem({ id, name, date, service, phone, canceled, openModal, 
 			{canceled ? <div className="appointment__canceled">Canceled</div> : null}
 		</div>
 	);
-}
+});
 
 export default AppointmentItem;
