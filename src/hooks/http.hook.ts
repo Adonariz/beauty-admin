@@ -10,7 +10,7 @@ interface HTTPRequestHeaders {
 interface RequestConfig {
 	url: string;
 	method?: HTTPRequestMethods;
-	body?: string | null;
+	body?: string | null | FormData;
 	headers?: HTTPRequestHeaders;
 }
 

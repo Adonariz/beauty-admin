@@ -1,30 +1,65 @@
-import "./caform.scss";
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { useAppointmentService } from '@services/AppointmentService';
+import { AppointmentContext } from '@src/context/appointments/AppointmentsContext';
+
+import { Appointment } from '@shared/interfaces/appointment.interface';
+
+import './caform.scss';
+
+const initialFormData: Appointment = {
+	id: 1,
+	name: '',
+	service: '',
+	phone: '',
+	date: '',
+	canceled: false,
+};
 
 function CAForm() {
+	const { createNewAppointment } = useAppointmentService();
+	const { getActiveAppointments } = useContext(AppointmentContext);
+
+	const [formData, setFormData] = useState<Appointment>(initialFormData);
+	const [creationStatus, setCreationStatus] = useState<boolean>(false);
+
+	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+		evt.preventDefault();
+		setCreationStatus(true);
+
+		createNewAppointment(formData)
+			.then(() => {
+				setCreationStatus(false);
+				setFormData(initialFormData);
+				getActiveAppointments();
+			})
+			.catch(() => {
+				alert('Error while creating new appointment');
+			});
+	};
+
+	const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+		const target = evt.target;
+
+		const { name, value } = target;
+
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
+	};
+
 	return (
-		<form className="caform">
+		<form className="caform" onSubmit={handleSubmit}>
 			<div className="caform__title">Create new appointment</div>
 			<label htmlFor="name">
 				Name<span>*</span>
 			</label>
-			<input
-				type="text"
-				name="name"
-				id="name"
-				placeholder="User name"
-				required
-			/>
+			<input type="text" name="name" id="name" placeholder="User name" required value={formData.name} onChange={handleChange} />
 
 			<label htmlFor="service">
 				Service<span>*</span>
 			</label>
-			<input
-				type="text"
-				name="service"
-				id="service"
-				placeholder="Service name"
-				required
-			/>
+			<input type="text" name="service" id="service" placeholder="Service name" required value={formData.service} onChange={handleChange} />
 
 			<label htmlFor="phone">
 				Phone number<span>*</span>
@@ -37,6 +72,8 @@ function CAForm() {
 				pattern="^\++[0-9]{1} [0-9]{3} [0-9]{3} [0-9]{3}"
 				title="Format should be +1 804 944 567"
 				required
+				value={formData.phone}
+				onChange={handleChange}
 			/>
 
 			<label htmlFor="date">
@@ -50,8 +87,10 @@ function CAForm() {
 				pattern="^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$"
 				title="Format should be DD/MM/YYYY HH:mm"
 				required
+				value={formData.date}
+				onChange={handleChange}
 			/>
-			<button>Create</button>
+			<button disabled={creationStatus}>Create</button>
 		</form>
 	);
 }
