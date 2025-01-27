@@ -7,7 +7,7 @@ import { Appointment } from '@shared/interfaces/appointment.interface';
 import './appointmentItem.scss';
 
 type AppointmentProps = Optional<Appointment, 'canceled'> & {
-	openModal: (state: number) => void;
+	openModal?: (state: number) => void;
 };
 
 /**
@@ -49,7 +49,7 @@ const AppointmentItem = memo(({ id, name, date, service, phone, canceled, openMo
 				<span className="appointment__phone">Phone: {phone}</span>
 			</div>
 
-			{!canceled ? (
+			{!canceled && openModal ? (
 				<>
 					<div className="appointment__time">
 						<span>Time left:</span>
