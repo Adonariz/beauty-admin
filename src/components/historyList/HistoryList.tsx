@@ -4,17 +4,22 @@ import { AppointmentContext } from '@context/appointments/AppointmentsContext';
 import Spinner from '@components/spinner/Spinner';
 import Error from '@components/error/Error';
 
+/**
+ * Компонент списка записей
+ */
 function HistoryList() {
-	const { allAppointments, getAppointments, appointmentLoadingStatus } = useContext(AppointmentContext);
+	const { allAppointments, getAppointments, appointmentLoadingStatus, calendarDate } = useContext(AppointmentContext);
 
 	useEffect(() => {
 		getAppointments();
-	}, []);
+	}, [calendarDate]);
 
+	// Вернем спиннер при загрузке
 	if (appointmentLoadingStatus === 'loading') {
 		return <Spinner />;
 	}
 
+	// Вернем ошибку при ошибке
 	if (appointmentLoadingStatus === 'error') {
 		<>
 			<Error />

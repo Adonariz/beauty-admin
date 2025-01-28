@@ -4,9 +4,21 @@ import { Appointment, ActiveAppointment } from '@shared/interfaces/appointment.i
 import { LooseValue } from 'react-calendar/src/shared/types.js';
 
 export interface AppointmentState {
+	/**
+	 * Все записи
+	 */
 	allAppointments: Appointment[] | [];
+	/**
+	 * Все активные записи
+	 */
 	activeAppointments: ActiveAppointment[] | [];
+	/**
+	 * Статус загрузки записей
+	 */
 	appointmentLoadingStatus: LoadingStatusOptions;
+	/**
+	 * Фильтр по дате
+	 */
 	calendarDate: LooseValue;
 }
 

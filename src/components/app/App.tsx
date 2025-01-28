@@ -8,6 +8,9 @@ import { AppointmentContextProvider } from '@context/appointments/AppointmentsCo
 
 import './app.scss';
 
+/**
+ * Конфигурация роутера
+ */
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -30,6 +33,9 @@ const router = createBrowserRouter([
 	},
 ]);
 
+/**
+ * Основная сетка приложения
+ */
 function Root() {
 	return (
 		<main className="board">

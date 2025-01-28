@@ -23,11 +23,15 @@ function getTimeLeftString(date: string): string {
 	return `${hours}:${minutes.toString().length > 1 ? minutes : `0${minutes}`}`;
 }
 
+/**
+ * Компонент карточки записи
+ */
 const AppointmentItem = memo(({ id, name, date, service, phone, canceled, openModal }: AppointmentProps) => {
 	const [timeLeft, setTimeLeft] = useState<string | null>(null);
 
 	const formattedDate = dayjs(date).format('DD/MM/YYYY HH:mm');
 
+	// работа таймера
 	useEffect(() => {
 		setTimeLeft(getTimeLeftString(date));
 
@@ -49,7 +53,7 @@ const AppointmentItem = memo(({ id, name, date, service, phone, canceled, openMo
 				<span className="appointment__phone">Phone: {phone}</span>
 			</div>
 
-			{!canceled && openModal ? (
+			{!canceled && openModal && (
 				<>
 					<div className="appointment__time">
 						<span>Time left:</span>
@@ -63,9 +67,9 @@ const AppointmentItem = memo(({ id, name, date, service, phone, canceled, openMo
 						Cancel
 					</button>
 				</>
-			) : null}
+			)}
 
-			{canceled ? <div className="appointment__canceled">Canceled</div> : null}
+			{canceled && <div className="appointment__canceled">Canceled</div>}
 		</div>
 	);
 });

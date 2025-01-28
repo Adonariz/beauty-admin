@@ -6,6 +6,9 @@ import { Appointment } from '@shared/interfaces/appointment.interface';
 
 import './caform.scss';
 
+/**
+ * Начальное состояние формы
+ */
 const initialFormData: Appointment = {
 	id: 1,
 	name: '',
@@ -15,13 +18,19 @@ const initialFormData: Appointment = {
 	canceled: false,
 };
 
+/**
+ * Компонент формы создания записи
+ */
 function CAForm() {
 	const { createNewAppointment } = useAppointmentService();
 	const { getActiveAppointments } = useContext(AppointmentContext);
 
 	const [formData, setFormData] = useState<Appointment>(initialFormData);
-	const [creationStatus, setCreationStatus] = useState<boolean>(false);
+	const [creationStatus, setCreationStatus] = useState<boolean>(false); // флаг для блокировки кнопки
 
+	/**
+	 * Обработчик отправки формы
+	 */
 	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault();
 		setCreationStatus(true);
@@ -37,6 +46,9 @@ function CAForm() {
 			});
 	};
 
+	/**
+	 * Обработчик изменения полей формы
+	 */
 	const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
 		const target = evt.target;
 

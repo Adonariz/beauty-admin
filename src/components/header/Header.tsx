@@ -2,6 +2,9 @@ import { NavLink, Link } from 'react-router-dom';
 
 import './header.scss';
 
+/**
+ * Компонент шапки
+ */
 function Header() {
 	return (
 		<header className="header">

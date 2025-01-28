@@ -6,6 +6,9 @@ interface PortalProps {
 	wrapperId?: string;
 }
 
+/**
+ * Функция создания обертки и добавления в body
+ */
 function createWrapperAndAppendToBody(wrapperId: string) {
 	const wrapperEllement = document.createElement('div');
 
@@ -15,6 +18,9 @@ function createWrapperAndAppendToBody(wrapperId: string) {
 	return wrapperEllement;
 }
 
+/**
+ * Компонент портала для модальных окон
+ */
 function Portal({ children, wrapperId = 'portal-wrapper' }: PortalProps) {
 	const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(null);
 

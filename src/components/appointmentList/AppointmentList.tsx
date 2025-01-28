@@ -5,25 +5,34 @@ import Error from '@components/error/Error';
 import { AppointmentContext } from '@context/appointments/AppointmentsContext';
 import CancelModal from '@components/modal/CancelModal';
 
+/**
+ * Компонент списка записей
+ */
 function AppointmentList() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedId, setSelectedId] = useState(0);
 
-	const { activeAppointments, getActiveAppointments, appointmentLoadingStatus } = useContext(AppointmentContext);
+	const { activeAppointments, getActiveAppointments, appointmentLoadingStatus, calendarDate } = useContext(AppointmentContext);
 
 	useEffect(() => {
 		getActiveAppointments();
-	}, []);
+		// в зависимости фильтр по дате для корректного ререндера
+	}, [calendarDate]);
 
+	/**
+	 * Обработчик открытия модального окна
+	 */
 	const handleOpenModal = useCallback((id: number) => {
 		setIsOpen(true);
 		setSelectedId(id);
 	}, []);
 
+	// Вернем спиннер при загрузке
 	if (appointmentLoadingStatus === 'loading') {
 		return <Spinner />;
 	}
 
+	// Вернем ошибку при ошибке
 	if (appointmentLoadingStatus === 'error') {
 		return (
 			<>

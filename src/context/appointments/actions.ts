@@ -1,6 +1,9 @@
 import { Appointment, ActiveAppointment } from '@shared/interfaces/appointment.interface';
 import { LooseValue } from 'react-calendar/src/shared/types.js';
 
+/**
+ * Типы действий для редьюсера
+ */
 export enum ActionsTypes {
 	SET_ACTIVE_APPOINTMENTS = 'SET_ACTIVE_APPOINTMENTS',
 	SET_ALL_APPOINTMENTS = 'SET_ALL_APPOINTMENTS',

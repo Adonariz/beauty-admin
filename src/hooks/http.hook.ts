@@ -1,6 +1,9 @@
 import { useState, useCallback } from 'react';
 
 type HTTPRequestMethods = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+/**
+ * Типы статусов загрузки
+ */
 export type LoadingStatusOptions = 'idle' | 'loading' | 'error';
 
 interface HTTPRequestHeaders {
@@ -14,6 +17,9 @@ interface RequestConfig {
 	headers?: HTTPRequestHeaders;
 }
 
+/**
+ * Хук для работы с HTTP запросами
+ */
 export const useHttp = () => {
 	const [loadingStatus, setLoadingStatus] = useState<LoadingStatusOptions>('idle');
 

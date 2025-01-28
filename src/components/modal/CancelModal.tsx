@@ -13,6 +13,9 @@ interface ModalProps {
 	isOpen: boolean;
 }
 
+/**
+ * Модальное окно подтверждения удаления записи
+ */
 function CancelModal({ handleClose, selectedId, isOpen }: ModalProps) {
 	const { getActiveAppointments } = useContext(AppointmentContext);
 
@@ -24,6 +27,9 @@ function CancelModal({ handleClose, selectedId, isOpen }: ModalProps) {
 	const [btnIsDisabled, setBtnIsDisabled] = useState<boolean>(false);
 	const [cancelStatus, setCancelStatus] = useState<boolean | null>(null);
 
+	/**
+	 * Обработчик отмены записи
+	 */
 	const handleCancelAppointment = (id: number) => {
 		setBtnIsDisabled(true);
 
@@ -37,12 +43,18 @@ function CancelModal({ handleClose, selectedId, isOpen }: ModalProps) {
 			});
 	};
 
+	/**
+	 * Обработчик закрытия модального окна по нажатию на Escape
+	 */
 	const closeOnEscapeKey = (evt: KeyboardEvent): void => {
 		if (evt.key === 'Escape') {
 			closeModal();
 		}
 	};
 
+	/**
+	 * Функция закрытия модального окна
+	 */
 	const closeModal = () => {
 		handleClose(false);
 
@@ -78,7 +90,8 @@ function CancelModal({ handleClose, selectedId, isOpen }: ModalProps) {
 								Close
 							</button>
 						</div>
-						<div className="modal__status">{cancelStatus === null ? '' : cancelStatus ? 'Success' : 'Error, please try again'}</div>
+
+						{cancelStatus !== null && <div className="modal__status">{cancelStatus ? 'Success' : 'Error, please try again'}</div>}
 					</div>
 				</div>
 			</CSSTransition>
