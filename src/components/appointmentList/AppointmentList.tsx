@@ -2,7 +2,7 @@ import { useContext, useEffect, useState, useCallback } from 'react';
 import AppointmentItem from '../appointmentItem/AppointmentItem';
 import Spinner from '@components/spinner/Spinner';
 import Error from '@components/error/Error';
-import { AppointmentContext } from '@src/context/appointments/AppointmentsContext';
+import { AppointmentContext } from '@context/appointments/AppointmentsContext';
 import CancelModal from '@components/modal/CancelModal';
 
 function AppointmentList() {

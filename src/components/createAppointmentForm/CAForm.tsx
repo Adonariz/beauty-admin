@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { useAppointmentService } from '@services/AppointmentService';
-import { AppointmentContext } from '@src/context/appointments/AppointmentsContext';
+import { AppointmentContext } from '@context/appointments/AppointmentsContext';
 
 import { Appointment } from '@shared/interfaces/appointment.interface';
 

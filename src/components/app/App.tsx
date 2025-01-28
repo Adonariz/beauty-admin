@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Header from '../header/Header';
-import SchedulePage from '../../pages/schedule/SchedulePage';
+import Header from '@components/header/Header';
+import SchedulePage from '@pages/schedule/SchedulePage';
 import HistoryPage from '@pages/history/HistoryPage';
 import PageNotFound from '@pages/error/404';
-import { AppointmentContextProvider } from '@src/context/appointments/AppointmentsContext';
+
+import { AppointmentContextProvider } from '@context/appointments/AppointmentsContext';
 
 import './app.scss';
 

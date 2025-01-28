@@ -33,6 +33,7 @@
 			"@style/*": ["src/style/*"],
 			"@utils/*": ["src/utils/*"],
 			"@shared/*": ["src/shared/*"],
+            "@context/*": ["src/context/*"],
 			"@src/*": ["src/*"]
 		}
 	},

@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import Portal from '@components/portal/Portal';
-import { AppointmentContext } from '@src/context/appointments/AppointmentsContext';
+import { AppointmentContext } from '@context/appointments/AppointmentsContext';
 import { useAppointmentService } from '@services/AppointmentService';
 
 import './modal.scss';

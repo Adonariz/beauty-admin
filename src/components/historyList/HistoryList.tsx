@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import AppointmentItem from '../appointmentItem/AppointmentItem';
-import { AppointmentContext } from '@src/context/appointments/AppointmentsContext';
+import { AppointmentContext } from '@context/appointments/AppointmentsContext';
 import Spinner from '@components/spinner/Spinner';
 import Error from '@components/error/Error';
 
